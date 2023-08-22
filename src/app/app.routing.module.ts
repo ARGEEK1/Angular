@@ -7,17 +7,26 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UserComponent } from './users/user/user.component';
 import { ListComponent } from './users/list/list.component';
 import { DetailsComponent } from './users/details/details.component';
+import { permissionsGuard } from './guards/permissions.guard';
+import { withoutSaveGuard } from './guards/without-save.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'contact-reactive', component: ContactReactiveComponent },
+  {
+    path: 'contact-reactive',
+    component: ContactReactiveComponent,
+    canDeactivate: [withoutSaveGuard],
+  },
   { path: 'contact-templete/:id', component: ContactComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'users', component: UserComponent, 
+  {
+    path: 'users',
+    component: UserComponent,
+    canActivate: [permissionsGuard],
     children: [
-      {path: 'list', component: ListComponent},
-      {path: 'details', component: DetailsComponent}
-    ] 
+      { path: 'list', component: ListComponent },
+      { path: 'details', component: DetailsComponent },
+    ],
   },
   { path: '**', component: PagenotfoundComponent },
 ];
