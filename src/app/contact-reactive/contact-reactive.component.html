@@ -1,3 +1,5 @@
+<pre>{{ departments }}</pre>
+
 <h1>Contac Form {{name}}</h1>
 <!-- formulario hecho con el enfoque de formulario Reactivo -->
 <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
@@ -20,9 +22,7 @@
     <label for="departament" class="form-label">Departament</label>
     <select name="departament" id="departament" class="form-select form-select-sm" required formControlName="departament">
       <option selected>open this select menu</option>
-      <option value="marketing">Marketing</option>
-      <option value="sales">Sales</option>
-      <option value="other">Other</option>
+      <option *ngFor="let departament of departments" [value]="departament">{{departament}}</option>
     </select>
     <div *ngIf="contactForm.get('departament')?.touched && contactForm.get('departament')?.errors?.['required']" class="alert alert-danger">this field is required.</div>
   </div>

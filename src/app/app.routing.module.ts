@@ -9,6 +9,7 @@ import { ListComponent } from './users/list/list.component';
 import { DetailsComponent } from './users/details/details.component';
 import { permissionsGuard } from './guards/permissions.guard';
 import { withoutSaveGuard } from './guards/without-save.guard';
+import { dataServiceResolver } from './resolvers/data.resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -16,6 +17,9 @@ const routes: Routes = [
     path: 'contact-reactive',
     component: ContactReactiveComponent,
     canDeactivate: [withoutSaveGuard],
+    resolve: {
+      departments: dataServiceResolver,
+    },
   },
   { path: 'contact-templete/:id', component: ContactComponent },
   { path: 'home', component: HomeComponent },
