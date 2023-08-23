@@ -13,13 +13,19 @@ import { dataServiceResolver } from './resolvers/data.resolver.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // {
+  //   path: 'contact-reactive',
+  //   component: ContactReactiveComponent,
+  //   canDeactivate: [withoutSaveGuard],
+  //   resolve: {
+  //     departments: dataServiceResolver,
+  //   },
+  // },
   {
     path: 'contact-reactive',
-    component: ContactReactiveComponent,
-    canDeactivate: [withoutSaveGuard],
-    resolve: {
-      departments: dataServiceResolver,
-    },
+    loadChildren: () =>
+      import('./contact-reactive/contact-reactive.module')
+      .then((m) => m.ContactReactiveModule),
   },
   { path: 'contact-templete/:id', component: ContactComponent },
   { path: 'home', component: HomeComponent },
