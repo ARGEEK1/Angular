@@ -7,6 +7,7 @@ import {
   SimpleChanges,
   ChangeDetectionStrategy,
 } from '@angular/core';
+import { City } from '../services/data.service';
 
 @Component({
   selector: 'app-button',
@@ -18,7 +19,7 @@ import {
 export class ButtonComponent implements OnChanges, OnInit, OnDestroy {
   @Input() color!: string;
   @Input() label!: string;
-  @Input() selection!: string;
+  @Input() selection!: City;
 
   ngOnChanges(changes: SimpleChanges): void {
     //Es el preimero que se ejecuta sin hay un input o un output. si no hay no se ejecuta.

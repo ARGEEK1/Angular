@@ -2,6 +2,7 @@
   <div class="row m-3">
     <div class="col-md-5 my-3 m-3">
       <app-form-new-item (newItemEvent)="addNewCity($event)" [label]="'City'"
+        [selection]="selection"
         [className]="'btn-info'"></app-form-new-item>
         
     </div>
@@ -23,16 +24,21 @@
   <li [ngStyle]="{'color': 'red', 'background-color': city === 'Caracas' ? 'blue':'grey'}">{{ city }}</li>
   <li [ngClass]="{'selected': true, 'blue': city === 'Madrid'}">{{ city }}</li>
 </ul> -->
-      <ul>
-        <app-cities *ngFor="let city of (citeies | Filter: criteria)" (cityClicked)="onCityClicked($event)" [city]="city" [selection]="selection"></app-cities>
-      </ul>
+      
+        <app-cities 
+        *ngFor="let city of (cities| Filter: criteria)" 
+        (citySelected)="onCitySelected($event)" 
+        (cityDeleteEvent)="onCityDelete($event)"                                                                                                                                                                                                                                          
+        [city]="city" 
+        [selection]="selection"></app-cities>
+     
     </div>
  <!-- pipe para tranformar data, en este caso fecha, hay de moneda, entre otros  -->
     <!-- <p>{{ '6-12-2023, 10:10 pm' | date:'full' }}</p> -->
 
     <div class="col-md-4">
-      <div *ngIf="selection">
-        <p>Your City is: {{selection}}</p>
+      <div *ngIf="selection?.name">
+        <p>Your City is: {{selection?.name}}</p>
         <app-button (click)="onClear()" [color]="'blue'" [label]="'Clear'" [selection]="selection"></app-button>
       </div>
     </div>

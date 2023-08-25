@@ -1,26 +1,47 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { City } from '../services/data.service';
 
 @Component({
   selector: 'app-cities',
-  template: ` 
+  template: `
+    <ul class="list-group">
       <li
+        class="list-group-item mt-1"
         [ngClass]="{
-          'alert alert-info': city === selection,
-          blue: city === selection
+          'active': city?._id === selection?._id,
         }"
-        (click)="onCityClicked(city)"
+        (click)="onCitySelected(city)"
       >
-        {{ city | titlecase }}
-      </li>`,
+        {{ city.name | titlecase }}
+        <button
+          *ngIf="city?._id === selection?._id"
+          (click)="onCityDelete(city._id)"
+          type="button" 
+          class="btn btn-danger float-end">
+        Delete</button>
+      </li>
+    </ul>
+  `,
   styleUrls: ['./cities.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CitiesComponent {
-  @Input() city!: string;
-  @Input() selection!: string;
-  @Output() cityClicked = new EventEmitter<string>();
-  
-  onCityClicked(city: string): void {
-    this.cityClicked.emit(city);
+  @Input() city!: City;
+  @Input() selection!: City;
+  @Output() citySelected = new EventEmitter<City>();
+  @Output() cityDeleteEvent = new EventEmitter<string>();
+
+  onCitySelected(city: City): void {
+    this.citySelected.emit(city);
+  }
+
+  onCityDelete(id: string): void {
+    this.cityDeleteEvent.emit(id);
   }
 }

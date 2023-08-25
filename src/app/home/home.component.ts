@@ -1,27 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { City, DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent {
-  name!: string; // se coloca el signo de ! porque no se está deficiendo, solo se está declarando. 
-  citeies = ['Caracas', 'Madrid', 'Santiago', 'Lima']; //
+export class HomeComponent implements OnInit{
+  //name!: string; // se coloca el signo de ! porque no se está deficiendo, solo se está declarando.
+  // imageUrl =
+  //   'https://pagepro.co/blog/wp-content/uploads/2020/03/react-native-logo-884x1024.png';
   title = 'reto01';
-  imageUrl = 'https://pagepro.co/blog/wp-content/uploads/2020/03/react-native-logo-884x1024.png';
-  selection!: string;
-  criteria= '';
+  cities: City[] = []; //
+  selection!: City;
+  criteria = '';
 
-  addNewCity (city: string): void{
-    this.citeies.push(city);
+  constructor (private readonly dataSvc: DataService ) {}
+
+  ngOnInit(): void {
+    this.dataSvc.getCities()
+    .subscribe(res => {
+      this.cities = [...res]
+    })
   }
 
-  onCityClicked (city: string) : void {
+  addNewCity(city: string): void {
+    this.dataSvc.addNewCity(city)
+    .subscribe(res => {
+      this.cities.push(res);
+    })
+  }
+
+  onCitySelected(city: City): void {
     this.selection = city;
   }
 
-  onClear() :void {
-    this.selection= '';
+  onCityDelete(id: string): void {
+    if (confirm('Are you sure you want to delete this city')) {
+      this.dataSvc.deleteCity(id)
+      .subscribe(() => {
+        const temArray = this.cities.filter(city => city._id !== id);
+        this.cities = [...temArray];
+      })
+    }
+  }
+
+  onClear(): void {
+    this.selection = {
+      _id: '',
+      name: ''
+    };
   }
 }

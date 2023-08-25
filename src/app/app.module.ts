@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ButtonComponent } from './button/button.component';
@@ -15,6 +15,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UserComponent } from './users/user/user.component';
 import { DetailsComponent } from './users/details/details.component';
 import { ListComponent } from './users/list/list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,15 +30,16 @@ import { ListComponent } from './users/list/list.component';
     PagenotfoundComponent,
     UserComponent,
     DetailsComponent,
-    ListComponent,  
+    ListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     //ReactiveFormsModule, //modulo para formularios reactivos.
     AppRoutingModule, //modulo de rutas creado.
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
