@@ -1,7 +1,9 @@
 <div class="contairen">
   <div class="row m-3">
     <div class="col-md-5 my-3 m-3">
-      <app-form-new-item (newItemEvent)="addNewCity($event)" [label]="'City'"
+      <app-form-new-item 
+      (newItemEvent)="addNewCity($event)" [label]="'City'"
+      (updateItemEvent)="updateCity($event)" [label]="'City'"
         [selection]="selection"
         [className]="'btn-info'"></app-form-new-item>
         

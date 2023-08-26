@@ -19,8 +19,17 @@ export class FormNewItemComponent {
   @Input() selection!: City;
 
   @Output() newItemEvent = new EventEmitter<string>();
+  @Output() updateItemEvent = new EventEmitter<City>();
 
   addNewItem(item: string): void {
     this.newItemEvent.emit(item);
+  }
+
+  onUpdateItem(item: City, change: string): void {
+    const city: City = {
+      _id: item._id,
+      name: change,
+    };
+    this.updateItemEvent.emit(city);
   }
 }

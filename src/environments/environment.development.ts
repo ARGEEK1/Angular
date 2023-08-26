@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://crudcrud.com/api/b271026be86e4d8f87adb16e4cc81124/cities'
+  apiUrl: 'https://crudcrud.com/api/73164487109f41c5b18eaa2719b5a79f/cities'
 };
