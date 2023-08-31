@@ -1,12 +1,9 @@
 <div class="contairen">
   <div class="row m-3">
     <div class="col-md-5 my-3 m-3">
-      <app-form-new-item 
-      (newItemEvent)="addNewCity($event)" [label]="'City'"
-      (updateItemEvent)="updateCity($event)" [label]="'City'"
-        [selection]="selection"
-        [className]="'btn-info'"></app-form-new-item>
-        
+      <app-form-new-item (newItemEvent)="addNewCity($event)" [label]="'City'" (updateItemEvent)="updateCity($event)"
+        [label]="'City'" [selection]="selection" [className]="'btn-info'"></app-form-new-item>
+
     </div>
     <div class="col-md-5 my-3">
       <input type="text" class="form-control" placeholder="filter..." [(ngModel)]="criteria">
@@ -26,27 +23,29 @@
   <li [ngStyle]="{'color': 'red', 'background-color': city === 'Caracas' ? 'blue':'grey'}">{{ city }}</li>
   <li [ngClass]="{'selected': true, 'blue': city === 'Madrid'}">{{ city }}</li>
 </ul> -->
-      
-        <app-cities 
-        *ngFor="let city of (cities| Filter: criteria)" 
-        (citySelected)="onCitySelected($event)" 
-        (cityDeleteEvent)="onCityDelete($event)"                                                                                                                                                                                                                                          
-        [city]="city" 
-        [selection]="selection"></app-cities>
-     
+      <ng-container *ngIf="cities.length > 1">
+        <app-cities *ngFor="let city of (cities| Filter: criteria)" (citySelected)="onCitySelected($event)"
+          (cityDeleteEvent)="onCityDelete($event)" [city]="city" [selection]="selection">
+        </app-cities>
+      </ng-container>
+
     </div>
- <!-- pipe para tranformar data, en este caso fecha, hay de moneda, entre otros  -->
+    <!-- pipe para tranformar data, en este caso fecha, hay de moneda, entre otros  -->
     <!-- <p>{{ '6-12-2023, 10:10 pm' | date:'full' }}</p> -->
-    <hr>
+    <!-- <hr>
     <app-card>
       <div card-header>Soy Header</div>
       <div card-body>Soy Body</div>
-    </app-card>
+    </app-card> -->
     <div class="col-md-4">
-      <div *ngIf="selection?.name">
+      <ng-container *ngIf="selection?.name ; else templateEmpty" >
         <p>Your City is: {{selection?.name}}</p>
         <app-button (click)="onClear()" [color]="'blue'" [label]="'Clear'" [selection]="selection"></app-button>
-      </div>
+      </ng-container>
     </div>
+
+    <ng-template #templateEmpty>
+      we dont have cities xd
+    </ng-template>
   </div>
 </div>
