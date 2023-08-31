@@ -37,7 +37,11 @@
     </div>
  <!-- pipe para tranformar data, en este caso fecha, hay de moneda, entre otros  -->
     <!-- <p>{{ '6-12-2023, 10:10 pm' | date:'full' }}</p> -->
-
+    <hr>
+    <app-card>
+      <div card-header>Soy Header</div>
+      <div card-body>Soy Body</div>
+    </app-card>
     <div class="col-md-4">
       <div *ngIf="selection?.name">
         <p>Your City is: {{selection?.name}}</p>
