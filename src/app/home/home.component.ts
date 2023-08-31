@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   constructor(private readonly dataSvc: DataService) {}
 
   ngOnInit(): void {
+    this.dataSvc.selectedCity$.subscribe((city: City) => (this.selection = city));
     this.dataSvc.getCities().subscribe((res) => {
       this.cities = [...res];
     });
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
   }
 
   onCitySelected(city: City): void {
-    this.selection = city;
+    //this.selection = city;
+    this.dataSvc.setCity(city);
   }
 
   onCityDelete(id: string): void {

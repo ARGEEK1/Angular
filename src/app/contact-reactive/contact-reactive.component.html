@@ -1,6 +1,6 @@
 <pre>{{ departments }}</pre>
 
-<h1>Contac Form {{name}}</h1>
+<h1>Contac Form {{name}} {{(selectedCity$ | async)?.name}}</h1>
 <!-- formulario hecho con el enfoque de formulario Reactivo -->
 <form (ngSubmit)="onSubmit()" [formGroup]="contactForm">
   <div class="mb-4">
